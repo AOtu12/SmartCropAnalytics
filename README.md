@@ -311,8 +311,7 @@ exec(open('import_data.py').read())
 
 ## 📊 Presentation Slides
 
-Download the presentation here:  
-[Download SmartCrop Presentation](./SmartCrop.pptx)
+👉 [Download SmartCrop Presentation](https://github.com/AOtu12/SmartCropAnalytics/raw/main/SmartCrop.pptx)
 
 ---
 
