@@ -312,7 +312,7 @@ exec(open('import_data.py').read())
 ## 📊 Presentation Slides
 
 Download the presentation here:  
-[SmartCrop Presentation](SmartCrop.pptx)
+[Download SmartCrop Presentation](./SmartCrop.pptx)
 
 ---
 
