@@ -1,61 +1,72 @@
+/* Page setup */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f7f6;
+    font-family: Arial, sans-serif; /* Font */
+    background-color: #f4f7f6; /* Light background */
     margin: 0;
     padding: 0;
-    text-align: center;
+    text-align: center; /* Center text */
 }
 
+/* Header */
 header {
-    background-color: #2e7d32;
+    background-color: #2e7d32; /* Green background */
     color: white;
     padding: 30px 0;
 }
 
+/* Title */
 h1 {
     margin: 0;
 }
 
+/* Dashboard layout */
 .dashboard {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: grid; /* Grid layout */
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
     gap: 20px;
     padding: 40px;
 }
 
+/* Card box */
 .card {
     background-color: white;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.1); /* Light shadow */
 }
 
+/* Card heading */
 .card h2 {
     color: #2e7d32;
 }
 
+/* Table */
 table {
     border-collapse: collapse;
-    margin: 20px auto;
+    margin: 20px auto; /* Center table */
     width: 80%;
     background-color: white;
 }
 
+/* Table cells */
 th, td {
     padding: 12px;
     text-align: center;
     border: 1px solid #ddd;
 }
 
+/* Table header */
 th {
     background-color: #2e7d32;
     color: white;
 }
 
+/* Zebra rows */
 tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
+/* Chart area */
 .chart-container {
     width: 60%;
     margin: 40px auto;

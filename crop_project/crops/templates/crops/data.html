@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic page setup -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Crop Analytics System</title>
+
+    <!-- External CSS file -->
+    <link rel="stylesheet" href="{% static 'crops/style.css' %}">
+
+    <style>
+        /* Reset default browser spacing */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Main page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+        }
+
+        /* Header section styling */
+        header {
+            background: #2e7d32;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        /* Button that links to charts dashboard */
+        .chart-link {
+            display: inline-block;
+            padding: 12px 22px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .chart-link:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* Main content container */
+        .container {
+            width: 92%;
+            max-width: 1400px;
+            margin: 35px auto;
+        }
+
+        /* Card holding the crop table */
+        .table-card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+
+        .table-card h2 {
+            margin-bottom: 20px;
+            color: #2e7d32;
+            font-size: 28px;
+        }
+
+        /* Makes table scroll on smaller screens */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        /* Main table styling */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        /* Table header styling */
+        .data-table th {
+            background: #2e7d32;
+            color: white;
+            padding: 16px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        /* Table cell styling */
+        .data-table td {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            font-size: 15px;
+        }
+
+        /* Alternate row colors for readability */
+        .data-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        /* Highlight row when hovered */
+        .data-table tr:hover {
+            background: #f1f8f4;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Main dashboard heading -->
+<header>
+    <h1>Smart Crop Analytics System</h1>
+    <p>Analyze Canadian Agricultural Production Data Efficiently</p>
+
+    <!-- Navigation button to charts page -->
+    <a href="/charts/" class="chart-link">Go to Charts Dashboard →</a>
+</header>
+
+<div class="container">
+
+    <!-- Table section for displaying crop records -->
+    <div class="table-card">
+        <h2>Crop Data Reference Table</h2>
+
+        <div class="table-wrapper">
+            <table class="data-table">
+                <!-- Table headings -->
+                <tr>
+                    <th>Crop</th>
+                    <th>Production</th>
+                    <th>Yield</th>
+                    <th>Year</th>
+                    <th>Region</th>
+                </tr>
+
+                <!-- Django loop to display crop data from database -->
+                {% for crop in crops %}
+                <tr>
+                    <td>{{ crop.crop }}</td>
+                    <td>{{ crop.production }}</td>
+                    <td>{{ crop.yield_amount }}</td>
+                    <td>{{ crop.year }}</td>
+                    <td>{{ crop.region }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
