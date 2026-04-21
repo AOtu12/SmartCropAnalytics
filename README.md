@@ -162,8 +162,8 @@ https://www.python.org/downloads/
 ## 2. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
-cd smart-crop-analytics/crop_project
+git clone https://github.com/AOtu12/SmartCropAnalytics.git
+cd SmartCropAnalytics/crop_project
 ```
 
 ---
