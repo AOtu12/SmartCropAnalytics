@@ -42,7 +42,7 @@
             margin-bottom: 15px;
         }
 
-        /* Back button styling */
+        /* Back button */
         header a {
             display: inline-block;
             padding: 10px 18px;
@@ -57,14 +57,14 @@
             background: rgba(255,255,255,0.25);
         }
 
-        /* Main content container */
+        /* Container */
         .container {
             width: 90%;
             max-width: 1300px;
             margin: 30px auto;
         }
 
-        /* Filter section card */
+        /* Filter box */
         .filter-box {
             background: white;
             padding: 25px;
@@ -86,30 +86,22 @@
             align-items: center;
         }
 
-        /* Dropdown styling for filters */
+        /* Dropdown style */
         .filter-select {
             width: 220px;
             padding: 12px 16px;
             font-size: 15px;
             border: 1px solid #ccc;
             border-radius: 8px;
-            background: white;
-            cursor: pointer;
-            outline: none;
         }
 
-        .filter-select:focus {
-            border-color: #2e7d32;
-        }
-
-        /* Apply filter button */
+        /* Button style */
         button {
             padding: 12px 20px;
             background: #2e7d32;
             color: white;
             border: none;
             font-weight: bold;
-            font-size: 15px;
             border-radius: 8px;
             cursor: pointer;
         }
@@ -118,18 +110,13 @@
             background: #1b5e20;
         }
 
-        /* Chart card styling */
+        /* Chart cards */
         .chart-card {
             background: white;
             padding: 30px;
             border-radius: 14px;
             box-shadow: 0 4px 14px rgba(0,0,0,0.08);
             margin-bottom: 30px;
-        }
-
-        .chart-card h2 {
-            margin-bottom: 20px;
-            color: #2e7d32;
         }
 
         canvas {
@@ -139,7 +126,7 @@
 </head>
 <body>
 
-<!-- Dashboard title section -->
+<!-- Header -->
 <header>
     <h1>Crop Analytics Dashboard</h1>
     <p>Data Representation in Charts</p>
@@ -148,17 +135,21 @@
 
 <div class="container">
 
-    <!-- Filter section for crop, year, and region -->
+    <!-- ========================= -->
+    <!-- FILTER SECTION -->
+    <!-- ========================= -->
     <div class="filter-box">
         <h2>Filter Dashboard</h2>
 
         <form method="GET">
 
-            <!-- Crop dropdown -->
+            <!-- Crop dropdown (keeps selected value) -->
             <select name="crop" class="filter-select">
                 <option value="">Select Crop</option>
                 {% for crop in crop_names %}
-                    <option value="{{ crop }}">{{ crop }}</option>
+                    <option value="{{ crop }}" {% if crop == request.GET.crop %}selected{% endif %}>
+                        {{ crop }}
+                    </option>
                 {% endfor %}
             </select>
 
@@ -166,7 +157,9 @@
             <select name="year" class="filter-select">
                 <option value="">All Years</option>
                 {% for y in years %}
-                    <option value="{{ y }}">{{ y }}</option>
+                    <option value="{{ y }}" {% if y|stringformat:"s" == request.GET.year %}selected{% endif %}>
+                        {{ y }}
+                    </option>
                 {% endfor %}
             </select>
 
@@ -174,7 +167,9 @@
             <select name="region" class="filter-select">
                 <option value="">All Regions</option>
                 {% for r in regions %}
-                    <option value="{{ r }}">{{ r }}</option>
+                    <option value="{{ r }}" {% if r == request.GET.region %}selected{% endif %}>
+                        {{ r }}
+                    </option>
                 {% endfor %}
             </select>
 
@@ -182,19 +177,20 @@
         </form>
     </div>
 
-    <!-- Chart showing total production by crop -->
+    <!-- ========================= -->
+    <!-- CHARTS -->
+    <!-- ========================= -->
+
     <div class="chart-card">
         <h2>Production by Crop</h2>
         <canvas id="productionChart"></canvas>
     </div>
 
-    <!-- Chart showing yield changes over time -->
     <div class="chart-card">
         <h2>Yield Over Time</h2>
         <canvas id="yieldChart"></canvas>
     </div>
 
-    <!-- Pie chart for production by region -->
     <div class="chart-card">
         <h2>Production by Region</h2>
         <canvas id="regionChart"></canvas>
@@ -203,7 +199,9 @@
 </div>
 
 <script>
-// Data passed from Django views to JavaScript
+// =========================
+// DATA FROM DJANGO
+// =========================
 const productionLabels = {{ production_labels|safe }};
 const productionValues = {{ production_values|safe }};
 
@@ -213,51 +211,44 @@ const yieldValues = {{ yield_values|safe }};
 const regionLabels = {{ region_labels|safe }};
 const regionValues = {{ region_values|safe }};
 
-// Bar chart for crop production
+// =========================
+// BAR CHART
+// =========================
 new Chart(document.getElementById('productionChart'), {
     type: 'bar',
     data: {
         labels: productionLabels,
         datasets: [{
             label: 'Production',
-            data: productionValues,
-            borderWidth: 1
+            data: productionValues
         }]
-    },
-    options: {
-        responsive: true
     }
 });
 
-// Line chart for yield trends
+// =========================
+// LINE CHART
+// =========================
 new Chart(document.getElementById('yieldChart'), {
     type: 'line',
     data: {
         labels: yieldLabels,
         datasets: [{
             label: 'Average Yield',
-            data: yieldValues,
-            tension: 0.3,
-            borderWidth: 2
+            data: yieldValues
         }]
-    },
-    options: {
-        responsive: true
     }
 });
 
-// Pie chart for regional production comparison
+// =========================
+// PIE CHART
+// =========================
 new Chart(document.getElementById('regionChart'), {
     type: 'pie',
     data: {
         labels: regionLabels,
         datasets: [{
-            label: 'Production by Region',
             data: regionValues
         }]
-    },
-    options: {
-        responsive: true
     }
 });
 </script>
